@@ -1,12 +1,19 @@
-import { Button } from "./components/ui/button";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Layout from "./components/Layout";
 
-function App() {
+//Pages.
+import UsersPage from "./pages/UsersPage";
+
+export default function App() {
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <h1 className="text-3xl font-bold text-blue-600">Tailwind is working!</h1>
-      <Button>Shadcn Button</Button>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Navigate to="/users" replace />} />
+        <Route path="/" element={<Layout />}>
+          <Route path="users" element={<UsersPage></UsersPage>} />
+          <Route path="leaderboard" element={<div>Leaderboard Page</div>} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;
