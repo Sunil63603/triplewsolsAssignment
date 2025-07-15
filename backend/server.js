@@ -4,6 +4,7 @@ import { setCorsHeaders } from "./utils/cors.js";
 
 import { getUsers } from "./routes/users.js";
 import { addUser } from "./routes/users.js";
+import { claimPoints } from "./routes/claim.js";
 
 const PORT = process.env.BACKEND_PORT;
 
@@ -17,6 +18,8 @@ const server = http.createServer(async (req, res) => {
     await getUsers(req, res);
   } else if (req.url === "/api/users" && req.method === "POST") {
     await addUser(req, res);
+  } else if (req.url === "/api/claimPoints" && req.method === "POST") {
+    await claimPoints(req, res);
   } else {
     res.writeHead(404, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ message: "Route Not Found" }));

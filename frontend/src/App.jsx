@@ -1,12 +1,15 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/Layout";
 
+import { Toaster } from "sonner";
+
 //Pages.
 import UsersPage from "./pages/UsersPage";
 
 export default function App() {
   return (
     <BrowserRouter>
+      <Toaster richColors></Toaster>
       <Routes>
         <Route path="/" element={<Navigate to="/users" replace />} />
         <Route path="/" element={<Layout />}>

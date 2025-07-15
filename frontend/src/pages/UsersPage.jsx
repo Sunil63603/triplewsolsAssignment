@@ -1,6 +1,7 @@
 import { Card } from "../components/ui/card";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
+import { toast } from "sonner";
 import { useState, useEffect } from "react";
 import { StarIcon } from "lucide-react";
 
@@ -54,6 +55,34 @@ export default function UsersPage() {
     }
   };
 
+  const handleClaim = async (_id, name) => {
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/claimPoints`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ _id }),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        setUsers((prev) =>
+          prev.map((user) =>
+            user._id === _id
+              ? {
+                  ...user,
+                  claimedPoints: user.claimedPoints + data.claimedPoints,
+                }
+              : user
+          )
+        );
+
+        toast.success(`${name} claimed ${data.claimedPoints} points!`);
+      }
+    } catch (error) {
+      console.error("Failed to claim points:", error);
+    }
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
 
@@ -76,7 +105,11 @@ export default function UsersPage() {
             <StarIcon className="w-4 h-4 mr-1 text-yellow-400"></StarIcon>
             {user.claimedPoints} pts
           </div>
-          <Button size="sm" className="hover:bg-blue-600">
+          <Button
+            size="sm"
+            className="hover:bg-blue-600"
+            onClick={() => handleClaim(user._id, user.name)}
+          >
             Claim
           </Button>
         </Card>
