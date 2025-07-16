@@ -1,3 +1,4 @@
+//just for testing purpose. Ignore this
 import { connectToDB } from "../db/connect.js";
 
 async function testDB() {

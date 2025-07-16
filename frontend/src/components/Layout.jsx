@@ -1,10 +1,15 @@
+//react imports
+import { Outlet, Link } from "react-router-dom";
+
+//icon imports
+import { UsersIcon } from "lucide-react";
+
+//shadcn imports
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuList,
 } from "./ui/navigation-menu";
-import { Outlet, Link } from "react-router-dom";
-import { UsersIcon } from "lucide-react";
 
 export default function Layout() {
   return (

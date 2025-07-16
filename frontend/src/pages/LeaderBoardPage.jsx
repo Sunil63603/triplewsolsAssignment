@@ -1,20 +1,22 @@
+//react hook imports
 import { useState, useEffect } from "react";
+
+//icon imports
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { FaceSmileIcon } from "@heroicons/react/24/solid";
-import { MdFace } from "react-icons/md";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export default function LeaderBoardPage() {
-  const [leaders, setLeaders] = useState([]);
+  const [leaders, setLeaders] = useState([]); //same as users state variable in UsersPage.jsx
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     async function fetchLeaders() {
       try {
-        //reusing same API for fetching both user and leader-board ranks.
-        const res = await fetch(`${BACKEND_URL}/api/users`);
+        //reusing same API for fetching in both UsersPage and leader-boardPage.
+        const res = await fetch(`${BACKEND_URL}/api/users`); //returns descending sorted order
         if (!res.ok) throw new Error("Failed to fetch leaderboard");
         const data = await res.json();
         setLeaders(data);
@@ -56,7 +58,7 @@ export default function LeaderBoardPage() {
                   className="w-6 absolute -top-3 left-1/2 -translate-x-1/2"
                 />
                 <div className="w-20 h-20 flex items-center justify-center mb-1">
-                  <MdFace className="w-12 h-12 text-purple-500"></MdFace>
+                  <FaceSmileIcon className="w-20 h-20 text-blue-500"></FaceSmileIcon>
                 </div>
               </div>
               <p className="text-sm font-bold">{leaders[0].name}</p>
@@ -86,7 +88,7 @@ export default function LeaderBoardPage() {
                   className="w-5 absolute -top-2 left-1/2 -translate-x-1/2"
                 />
                 <div className="w-16 h-16 flex items-center justify-center mb-1">
-                  <FaceSmileIcon className="w-8 h-8 text-blue-500"></FaceSmileIcon>
+                  <FaceSmileIcon className="w-12 h-12 text-blue-500"></FaceSmileIcon>
                 </div>
               </div>
               <p className="text-xs font-semibold truncate max-w-[60px]">

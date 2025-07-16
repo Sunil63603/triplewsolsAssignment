@@ -1,21 +1,25 @@
+//react hooks import
+import { useState, useEffect } from "react";
+
+//shadcn imports
 import { Card } from "../components/ui/card";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { toast } from "sonner";
-import { useState, useEffect } from "react";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export default function UsersPage() {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]); //fetch and store users list
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false); //modal to add new user
   const [newUserName, setNewUserName] = useState("");
 
   useEffect(() => {
     async function fetchUsers() {
       try {
+        //same API end-point is used for leaderboard as well for reusability.
         const res = await fetch(`${BACKEND_URL}/api/users`);
         if (!res.ok) throw new Error("Failed to fetch users");
         const data = await res.json();
@@ -36,13 +40,14 @@ export default function UsersPage() {
 
     const newUser = {
       name: newUserName,
-      totalPoints: 0,
+      totalPoints: 0, //initially 0
       claimedPoints: 0,
     };
-    setShowModal(false);
+    setShowModal(false); //hide modal
     setNewUserName("");
 
     try {
+      //store in database
       const res = await fetch(`${BACKEND_URL}/api/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -50,6 +55,8 @@ export default function UsersPage() {
       });
 
       const data = await res.json();
+
+      //update "users" state instead of fetching again from database.
       setUsers((prev) => [...prev, { ...newUser, _id: data._id }]);
     } catch (err) {
       console.error("Failed to add user:", err);
@@ -58,6 +65,7 @@ export default function UsersPage() {
 
   const handleClaim = async (_id, name) => {
     try {
+      //claimPoints will add generated random number to user using findOneAndUpdate() and create new entry in "claimHistory" collection
       const res = await fetch(`${BACKEND_URL}/api/claimPoints`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -65,6 +73,8 @@ export default function UsersPage() {
       });
 
       const data = await res.json();
+
+      //update points in local state for dynamically displaying on UI.
       if (res.ok) {
         setUsers((prev) =>
           prev.map((user) =>
@@ -77,6 +87,7 @@ export default function UsersPage() {
           )
         );
 
+        //display name and generated random number
         toast.success(`${name} claimed ${data.claimedPoints} points!`);
       }
     } catch (error) {

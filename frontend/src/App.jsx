@@ -1,6 +1,10 @@
+//React imports
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+//Layout contains fixed Header and Footer
 import Layout from "./components/Layout";
 
+//For PopUp Toast notifications
 import { Toaster } from "sonner";
 
 //Pages.
