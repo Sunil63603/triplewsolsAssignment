@@ -14,8 +14,13 @@ import {
 export default function Layout() {
   return (
     <div className="flex flex-col min-h-screen mx-auto max-w-md">
-      <header className="text-center p-4 text-2xl font-bold border-b">
-        Task Planet
+      <header className="flex items-center justify-center p-4 text-2xl font-bold border-b space-x-2">
+        <img
+          src="/images/TaskPlanet.png"
+          alt="TaskPlanet"
+          className="h-8 w-8"
+        />
+        <span>Task Planet</span>
       </header>
 
       <main className="flex-1 p-4 pb-20">
