@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
+import { FaceSmileIcon } from "@heroicons/react/24/solid";
+import { MdFace } from "react-icons/md";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -32,13 +34,13 @@ export default function LeaderBoardPage() {
 
   return (
     <div
-      className="bg-cover bg-center bg-repeat-y min-h-[1000px] pt-42"
+      className="bg-cover bg-center bg-repeat-y min-h-[800px] pt-42"
       style={{
         backgroundImage: "url(/images/LeaderBoardBgImage1.jpg)",
       }}
     >
       <div className="max-w-sm mx-auto bg-white rounded-lg shadow-md p-4 relative">
-        {/* Clock Icon */}
+        {/* Trophy Icon */}
         <div className="flex justify-center -mt-20 mb-6">
           <img src="/images/trophy.png" alt="Clock" className="w-16 h-16" />
         </div>
@@ -46,14 +48,16 @@ export default function LeaderBoardPage() {
         {/* Rank 1 Card (Shifted up with -mt-10) */}
         {leaders[0] && (
           <div className="flex justify-center -mt-10 mb-4">
-            <div className="flex flex-col items-center bg-white rounded-lg p-2 shadow-md relative">
+            <div className="flex flex-col items-center bg-white rounded-lg p-6 shadow-sm relative">
               <div className="relative">
                 <img
                   src="/images/gold-medal.png"
                   alt="Gold Medal"
                   className="w-6 absolute -top-3 left-1/2 -translate-x-1/2"
                 />
-                <div className="w-20 h-20 bg-gray-300 mb-1"></div>
+                <div className="w-20 h-20 flex items-center justify-center mb-1">
+                  <MdFace className="w-12 h-12 text-purple-500"></MdFace>
+                </div>
               </div>
               <p className="text-sm font-bold">{leaders[0].name}</p>
               <p className="text-xs text-gray-500 truncate max-w-[60px]">
@@ -67,7 +71,7 @@ export default function LeaderBoardPage() {
         )}
 
         {/* Rank 2 & 3 Cards */}
-        <div className="flex justify-between">
+        <div className="flex justify-between -mt-29">
           {[leaders[1], leaders[2]].map((user, idx) => (
             <div
               key={user?._id || idx}
@@ -81,7 +85,9 @@ export default function LeaderBoardPage() {
                   alt="Medal"
                   className="w-5 absolute -top-2 left-1/2 -translate-x-1/2"
                 />
-                <div className="w-16 h-16 bg-gray-300 mb-1"></div>
+                <div className="w-16 h-16 flex items-center justify-center mb-1">
+                  <FaceSmileIcon className="w-8 h-8 text-blue-500"></FaceSmileIcon>
+                </div>
               </div>
               <p className="text-xs font-semibold truncate max-w-[60px]">
                 {user?.name}
