@@ -59,6 +59,7 @@ export default function LeaderBoardPage() {
                 />
                 <div className="w-20 h-20 flex items-center justify-center mb-1">
                   <FaceSmileIcon className="w-20 h-20 text-blue-500"></FaceSmileIcon>
+                  <img src="/images/Work.png" alt="work" className=""></img>
                 </div>
               </div>
               <p className="text-sm font-bold">{leaders[0].name}</p>
