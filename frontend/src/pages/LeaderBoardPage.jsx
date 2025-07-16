@@ -34,17 +34,13 @@ export default function LeaderBoardPage() {
     <div
       className="bg-cover bg-center bg-repeat-y min-h-[1000px] pt-42"
       style={{
-        backgroundImage: "url(/src/assets/images/LeaderBoardBgImage1.jpg)",
+        backgroundImage: "url(/images/LeaderBoardBgImage1.jpg)",
       }}
     >
       <div className="max-w-sm mx-auto bg-white rounded-lg shadow-md p-4 relative">
         {/* Clock Icon */}
-        <div className="flex justify-center -mt-16 mb-2">
-          <img
-            src="/src/assets/images/clock.png"
-            alt="Clock"
-            className="w-16 h-16"
-          />
+        <div className="flex justify-center -mt-20 mb-6">
+          <img src="/images/trophy.png" alt="Clock" className="w-16 h-16" />
         </div>
 
         {/* Rank 1 Card (Shifted up with -mt-10) */}
@@ -53,7 +49,7 @@ export default function LeaderBoardPage() {
             <div className="flex flex-col items-center bg-white rounded-lg p-2 shadow-md relative">
               <div className="relative">
                 <img
-                  src="/src/assets/images/gold-medal.png"
+                  src="/images/gold-medal.png"
                   alt="Gold Medal"
                   className="w-6 absolute -top-3 left-1/2 -translate-x-1/2"
                 />
@@ -79,7 +75,7 @@ export default function LeaderBoardPage() {
             >
               <div className="relative">
                 <img
-                  src={`/src/assets/images/${
+                  src={`/images/${
                     idx === 0 ? "silver-medal" : "bronze-medal"
                   }.png`}
                   alt="Medal"

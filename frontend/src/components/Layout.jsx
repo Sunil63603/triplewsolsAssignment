@@ -5,7 +5,6 @@ import {
 } from "./ui/navigation-menu";
 import { Outlet, Link } from "react-router-dom";
 import { UsersIcon } from "lucide-react";
-import leaderboardIcon from "../assets/images/leaderboardIcon.png";
 
 export default function Layout() {
   return (
@@ -30,7 +29,7 @@ export default function Layout() {
               <NavigationMenuItem>
                 <Link to="/leaderboard">
                   <img
-                    src={leaderboardIcon}
+                    src="/images/leaderboardIcon.png"
                     alt="Leaderboard"
                     className="w-15 h-11"
                   ></img>
