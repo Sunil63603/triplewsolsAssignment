@@ -6,7 +6,11 @@ export async function getUsers(req, res) {
 
     const usersCollection = db.collection("users");
 
-    const users = await usersCollection.find().toArray();
+    //reuse this same function both for usersPage and LeadersBoardPage
+    const users = await usersCollection
+      .find()
+      .sort({ totalPoints: -1 })
+      .toArray();
 
     //set the HTTP response header to indicate that the content is JSON.
     res.writeHead(200, { "Content-Type": "application/json" });
@@ -33,9 +37,14 @@ export async function addUser(req, res) {
       const userData = JSON.parse(body);
       const db = await connectToDB();
       const usersCollection = db.collection("users");
-      await usersCollection.insertOne(userData);
+      const result = await usersCollection.insertOne(userData);
       res.writeHead(201, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ message: "User added successfully" }));
+      res.end(
+        JSON.stringify({
+          message: "User added successfully",
+          _id: result.insertedId.toString(),
+        })
+      );
     });
   } catch (error) {
     console.error("Error adding user:", error);

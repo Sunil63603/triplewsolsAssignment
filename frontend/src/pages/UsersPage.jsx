@@ -3,7 +3,6 @@ import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { toast } from "sonner";
 import { useState, useEffect } from "react";
-import { StarIcon } from "lucide-react";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -40,16 +39,18 @@ export default function UsersPage() {
       totalPoints: 0,
       claimedPoints: 0,
     };
-    setUsers((prev) => [...prev, newUser]);
     setShowModal(false);
     setNewUserName("");
 
     try {
-      await fetch(`${BACKEND_URL}/api/users`, {
+      const res = await fetch(`${BACKEND_URL}/api/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newUser),
       });
+
+      const data = await res.json();
+      setUsers((prev) => [...prev, { ...newUser, _id: data._id }]);
     } catch (err) {
       console.error("Failed to add user:", err);
     }
@@ -102,7 +103,7 @@ export default function UsersPage() {
         >
           <div className="font-medium">{user.name}</div>
           <div className="flex items-center text-yellow-400 font-semibold">
-            <StarIcon className="w-4 h-4 mr-1 text-yellow-400"></StarIcon>
+            🔥
             {user.claimedPoints} pts
           </div>
           <Button
